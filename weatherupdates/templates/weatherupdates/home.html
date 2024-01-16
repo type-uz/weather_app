@@ -1,0 +1,34 @@
+{% extends 'weatherupdates/base.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="col-md-8 offset-md-2">
+        <div class="mt-4 p-5 bg-dark text-white rounded mb-3">
+            <h1 class="text-center">Weather App</h1>
+        </div>
+        <form action="." method="POST">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" required class="form-control" name="city" placeholder="Search City.....">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="submit">Add City</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        {% for city_data in city_weather_updates %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <img src="http://openweathermap.org/img/w/{{ city_data.icon }}.png" alt="Weather Icon" class="float-start">
+                <div class="card-text float-end">{{ city_data.time }}</div>
+                <div class="card-text"><h5>{{ city_data.city }} {{ city_data.country_code }}</h5></div>
+                <div class="card-text"><h6>{{ city_data.temperature }}</h6></div>
+                <div class="card-text"><h6>{{ city_data.description | title }}</h6></div>
+                <div class="card-text"><h6>{{ city_data.wind }}</h6></div>
+                <div class="card-text"><h6>{{ city_data.humidity }}</h6></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
